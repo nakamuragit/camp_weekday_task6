@@ -41,10 +41,6 @@ result = Benchmark.realtime do
   end
   count = count.invert.sort.reverse
   p Hash[count].invert
-  # p m[0][member_names[0]]
-  # p m[0]
-  # p member_names[0].to_i
-  # p count
 }
 end
 end
