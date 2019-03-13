@@ -14,12 +14,41 @@
 #     ・入力は合計で M + 3 行となり、入力値最終行の末尾に改行が１つ入ります。
 
 # 解答：
+require 'benchmark'
+
+result = Benchmark.realtime do
 1.upto 3 do |t|
   puts "例#{t}の答え"
   File.open("data00#{t}.txt", "r"){ |f|
-    # ここにプログラムを記述してください。
-  }
+  member_number = f.gets.to_i
+  member_names = f.gets.chomp.split(" ")
+  study_sum = f.gets.to_i
+  sum = []*member_number
+  s = f.readlines.map(&:chomp)
+  m = []*(study_sum.to_i)
+  count = {}
+  s.each_with_index do |s, index|
+    m[index] = s.split(" ")
+    m[index] = { m[index][0] => m[index][1].to_i}
+  end
+  member_names.each_with_index do |name, index|
+    sum[index]= {name => m.inject(0) do |sum, hash| 
+      sum + hash[name].to_i
+    end}
+  end
+  sum.each do |sum| 
+    count.merge!(sum)
+  end
+  count = count.invert.sort.reverse
+  p Hash[count].invert
+  # p m[0][member_names[0]]
+  # p m[0]
+  # p member_names[0].to_i
+  # p count
+}
 end
+end
+puts "処理概要 #{result}s"
 
 # data001で期待する出力
 # {"yamaguchi"=>1500, "maeda"=>1000}
