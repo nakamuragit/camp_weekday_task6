@@ -21,15 +21,15 @@
     member_names = f.gets.chomp.split(" ")
     study_sum = f.gets.to_i
     sum = []*member_number
-    s = f.readlines.map(&:chomp)
-    m = [0]*(study_sum.to_i)
+    data = f.readlines.map(&:chomp)
+    array = [0]*(study_sum)
     count = {}
-    s.each_with_index do |s, index|
-      m[index] = s.split(" ")
-      m[index] = { m[index][0] => m[index][1].to_i}
+    data.each_with_index do |data, index|
+      array[index] = data.split(" ")
+      array[index] = { array[index][0] => array[index][1].to_i}
     end
     member_names.each_with_index do |name, index|
-      sum[index]= {name => m.inject(0) do |sum, hash| 
+      sum[index]= {name => array.inject(0) do |sum, hash| 
         sum + hash[name].to_i
       end}
     end
