@@ -16,28 +16,28 @@
 # 解答：
 1.upto 3 do |t|
   puts "例#{t}の答え"
-    File.open("data00#{t}.txt", "r"){ |f|
-    member_number = f.gets.to_i
-    member_names = f.gets.chomp.split(" ")
-    study_sum = f.gets.to_i
-    sum = []*member_number
-    data = f.readlines.map(&:chomp)
-    array = [0]*(study_sum)
-    count = {}
-    data.each_with_index do |data, index|
-      array[index] = data.split(" ")
-      array[index] = { array[index][0] => array[index][1].to_i}
-    end
-    member_names.each_with_index do |name, index|
-      sum[index]= {name => array.inject(0) do |sum, hash| 
-        sum + hash[name].to_i
-      end}
-    end
-    sum.each do |sum| 
-      count.merge!(sum)
-    end
-    p count.sort_by{ |k, v| v }.reverse.to_h
-    }
+  File.open("data00#{t}.txt", "r"){ |f|
+  member_number = f.gets.to_i
+  member_names = f.gets.chomp.split(" ")
+  study_sum = f.gets.to_i
+  sum = []*member_number
+  data = f.readlines.map(&:chomp)
+  array = [0]*(study_sum)
+  count = {}
+  data.each_with_index do |data, index|
+    array[index] = data.split(" ")
+    array[index] = { array[index][0] => array[index][1].to_i}
+  end
+  member_names.each_with_index do |name, index|
+    sum[index]= {name => array.inject(0) do |sum, hash|
+      sum + hash[name].to_i
+    end}
+  end
+  sum.each do |sum|
+    count.merge!(sum)
+  end
+  p count.sort_by{ |k, v| v }.reverse.to_h
+  }
 end
 
 
